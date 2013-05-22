@@ -1,12 +1,18 @@
 {
-	"manifest_version": 2,
 	"name": "HTML5 onmessage detect",
 	"version": "0.1",
+	"manifest_version": 2,
+
+	"icons": {"16": "logo.png",
+			  "48": "logo.png",
+			  "128": "logo.png" },	
 	"description": "Detect and display if a page is using the HTML5 onmessage functionality",
-	"background": {"page": "background.html"},
+
 	"page_action": {
 		"popup": "popup.html"
 	},
+	
+	"background": {"page": "background.html"},
 	"content_scripts": [
 		{
 			"matches": ["http://*/*","https://*/*"],
