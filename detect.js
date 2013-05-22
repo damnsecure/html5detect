@@ -1,4 +1,5 @@
 //Detect if onmessage is used if so notify background.html
+//Thanks to chromesniffer for providing a plugin that made me understand how this all works.
 (function () {
 	window.onmessage = function(message){
 		console.log(message);
