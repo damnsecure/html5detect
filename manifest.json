@@ -1,0 +1,18 @@
+{
+	"manifest_version": 2,
+	"name": "HTML5 onmessage detect",
+	"version": "0.1",
+	"description": "Detect and display if a page is using the HTML5 onmessage functionality",
+	"background": {"page": "background.html"},
+	"page_action": {
+		"popup": "popup.html"
+	},
+	"content_scripts": [
+		{
+			"matches": ["http://*/*","https://*/*"],
+			"js": ["main.js", "detect.js", "background.js"]
+		}
+	],
+	"web_accessible_resources": ["detect.js"],
+	"permissions": [ "tabs", "http://*/*", "https://*/*"]
+}
