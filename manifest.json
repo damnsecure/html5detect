@@ -1,12 +1,12 @@
 {
 	"name": "HTML5 onmessage detect",
-	"version": "0.1",
+	"version": "0.2",
 	"manifest_version": 2,
 
 	"icons": {"16": "logo.png",
 			  "48": "logo.png",
 			  "128": "logo.png" },	
-	"description": "Detect and display if a page is using the HTML5 onmessage functionality",
+	"description": "Detect and display all the postMessages that are send and recieved on a page",
 
 	"page_action": {
 		"popup": "popup.html"
