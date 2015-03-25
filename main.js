@@ -15,14 +15,14 @@
 		head.appendChild(meta);
 		head.appendChild(script);
 	}
-	
+
 	meta.addEventListener('ready', function(){
-		if (meta) {
+		if (meta)
+		{
 			var data = JSON.parse(meta.content)
 
-			if (Object.keys(data).length > 0) {
+			if (Object.keys(data).length > 0)
 				chrome.extension.sendRequest({msg: "result", result: data});
-			}
 		}
 	});
 })();
