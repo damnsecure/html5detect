@@ -6,8 +6,14 @@
 	var postMessageORIG = window.postMessage;
 	window.postMessage = function(message, destination){
 		console.group("Sending post messsage to '%s'", destination)
-		console.log(new Date(message.timeStamp));
-		console.log(JSON.parse(message.date));
+		if(message.hasOwnProperty('timeStamp'))
+			console.log(new Date(message.timeStamp));
+
+		if(message.hasOwnProperty('data') && isJson(message.data))
+			console.log(JSON.parse(message.data));
+		else
+			console.log(message.data);
+
 		console.groupEnd();
 
 		postMessageORIG(message, destination);
@@ -16,11 +22,29 @@
 
 	window.onmessage = function(message){
 		console.group("Received post message from '%s'", message.origin)
-		console.log(new Date(message.timeStamp));
-		console.log(JSON.parse(message.data));
+		if(message.hasOwnProperty('timeStamp'))
+			console.log(new Date(message.timeStamp));
+
+		if(message.hasOwnProperty('data') && isJson(message.data))
+			console.log(JSON.parse(message.data));
+		else
+			console.log(message.data);
 		console.groupEnd();
 
 		notify();
+	}
+
+	function isJson()
+	{
+		try
+		{
+			JSON.parse(str);
+			return true;
+		}
+		catch(e)
+		{
+			return false;
+		}
 	}
 
 	function notify()
