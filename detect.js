@@ -5,15 +5,13 @@
 (function () {
 	window.postMessage = function(message, destination){
 		console.group("Sending post messsage to '%s'", destination)
-		if(message.hasOwnProperty('timeStamp'))
-			console.log(new Date(message.timeStamp));
 
-		if(message.hasOwnProperty('data') && isJson(message.data))
-			console.log(JSON.parse(message.data));
+		if(message && isJson(message))
+			console.log(JSON.parse(message));
 		else
-			console.log(message.data);
-
+			console.log(message);
 		console.groupEnd();
+
 		notify();
 	}
 
