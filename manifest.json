@@ -5,9 +5,9 @@
 	"description": "Detect and display all the postMessages that are send and recieved on a page",
 
 	"page_action": { "popup": "popup.html" },
-	"background": { "page": "background.html" },
+	"background": { "scripts": ["background.js"] },
 	"web_accessible_resources":	[ "detect.js" ],
-	"permissions": [ "tabs", "http://*/*", "https://*/*" ],
+	"permissions": [ ],
 
 	"icons":
 	{
@@ -19,7 +19,8 @@
 	"content_scripts":
 	[
 		{
-			"matches":["http://*/*","https://*/*"],
+			"all_frames": true,
+		    "matches": ["http://*/*","https://*/*"],
 			"js": ["main.js", "detect.js", "background.js"]
 		}
 	]

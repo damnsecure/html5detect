@@ -1,6 +1,6 @@
 var tabs = {};
 
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
 	if (request.msg == 'result')
 	{
 		tabs[sender.tab.id] = request.result;

@@ -1,9 +1,8 @@
 /*
-	Detect if onmessage is used if so notify background.html
+	Detect if onmessage is used if so notify background.js
 	Credit to chromesniffer for giving me insight in how this works
 */
 (function () {
-	var postMessageORIG = window.postMessage;
 	window.postMessage = function(message, destination){
 		console.group("Sending post messsage to '%s'", destination)
 		if(message.hasOwnProperty('timeStamp'))
@@ -15,12 +14,10 @@
 			console.log(message.data);
 
 		console.groupEnd();
-
-		postMessageORIG(message, destination);
 		notify();
 	}
 
-	window.onmessage = function(message){
+	window.addEventListener('message', function(message){
 		console.group("Received post message from '%s'", message.origin)
 		if(message.hasOwnProperty('timeStamp'))
 			console.log(new Date(message.timeStamp));
@@ -32,7 +29,7 @@
 		console.groupEnd();
 
 		notify();
-	}
+	});
 
 	function isJson()
 	{
