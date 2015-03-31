@@ -17,10 +17,10 @@
 
 	window.addEventListener('message', function(message){
 		console.group("Received post message from '%s'", message.origin)
-		if(message.hasOwnProperty('timeStamp'))
+		if(message.timeStamp)
 			console.log(new Date(message.timeStamp));
 
-		if(message.hasOwnProperty('data') && isJson(message.data))
+		if(isJson(message.data))
 			console.log(JSON.parse(message.data));
 		else
 			console.log(message.data);
@@ -29,7 +29,7 @@
 		notify();
 	});
 
-	function isJson()
+	function isJson(str)
 	{
 		try
 		{
