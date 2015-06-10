@@ -3,8 +3,9 @@
 	Credit to chromesniffer for giving me insight in how this works
 */
 (function () {
+	originalPostMessageFunction = window.postMessage;
 	window.postMessage = function(message, destination){
-		console.group("Sending post messsage to '%s'", destination)
+		console.groupCollapsed("Sending post messsage to '%s'", destination)
 
 		if(message && isJson(message))
 			console.log(JSON.parse(message));
@@ -12,11 +13,13 @@
 			console.log(message);
 		console.groupEnd();
 
+		originalPostMessageFunction(message, destination);
+
 		notify();
 	}
 
 	window.addEventListener('message', function(message){
-		console.group("Received post message from '%s'", message.origin)
+		console.groupCollapsed("Received post message from '%s'", message.origin)
 		if(message.timeStamp)
 			console.log(new Date(message.timeStamp));
 
