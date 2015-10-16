@@ -3,23 +3,9 @@
 	Credit to chromesniffer for giving me insight in how this works
 */
 (function () {
-	originalPostMessageFunction = window.postMessage;
-	window.postMessage = function(message, destination){
-		console.groupCollapsed("Sending post messsage to '%s'", destination)
 
-		if(message && isJson(message))
-			console.log(JSON.parse(message));
-		else
-			console.log(message);
-		console.groupEnd();
-
-		originalPostMessageFunction(message, destination);
-
-		notify();
-	}
-
-	window.addEventListener('message', function(message){
-		console.groupCollapsed("Received post message from '%s'", message.origin)
+	function processMessage(message){
+		console.groupCollapsed("Received post message from '%s'", message.origin);
 		if(message.timeStamp)
 			console.log(new Date(message.timeStamp));
 
@@ -30,7 +16,7 @@
 		console.groupEnd();
 
 		notify();
-	});
+	}
 
 	function isJson(str)
 	{
@@ -55,4 +41,31 @@
 		done.initEvent('ready', true, true);
 		meta.dispatchEvent(done);
 	}
+
+	/* Main */
+
+	//Wrap the original `postMessage` function
+	originalPostMessageFunction = window.postMessage;
+	window.postMessage = function(message, destination){
+		console.groupCollapsed("Sending post messsage to '%s'", destination);
+
+		if(message && isJson(message))
+			console.log(JSON.parse(message));
+		else
+			console.log(message);
+		console.groupEnd();
+
+		originalPostMessageFunction(message, destination);
+
+		notify();
+	};
+
+	if(typeof('messageHandlerAttached') === undefined)
+	{
+		window.addEventListener('message', processMessage);
+
+		messageHandlerAttached = true;
+	}
+	/* END Main */
+
 })();
